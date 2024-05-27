@@ -1,5 +1,6 @@
-document.getElementById('eventForm').addEventListener('submit', function(event) {
-    event.preventDefault();
+document.getElementById('eventForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
     const eventName = document.getElementById('eventName').value;
     const eventDate = new Date(document.getElementById('eventDate').value);
     eventDate.setHours(0, 0, 0, 0);
