@@ -2,7 +2,6 @@ document.getElementById('eventForm').addEventListener('submit', function(event) 
     event.preventDefault();
     const eventName = document.getElementById('eventName').value;
     const eventDate = new Date(document.getElementById('eventDate').value);
-    // Set the time part to the start of the day (00:00:00)
     eventDate.setHours(0, 0, 0, 0);
     addEvent(eventName, eventDate);
 });
@@ -11,7 +10,7 @@ function addEvent(name, date) {
     const eventsContainer = document.getElementById('eventsContainer');
     const eventElement = document.createElement('div');
     eventElement.className = 'event';
-    const uniqueId = `countdown-${name}-${Date.now()}`;
+    const uniqueId = `countdown-${Date.now()}`;
     eventElement.innerHTML = `
         <h2>${name}</h2>
         <p id="${uniqueId}"></p>
@@ -46,14 +45,24 @@ function startCountdown(name, date, elementId) {
 }
 
 function renameEvent(elementId) {
+    console.log(`Rename event called for ${elementId}`);
     const newName = prompt('Enter the new name for the event:');
     if (newName) {
         const eventElement = document.querySelector(`#${elementId}`).closest('.event');
-        eventElement.querySelector('h2').textContent = newName;
+        if (eventElement) {
+            eventElement.querySelector('h2').textContent = newName;
+        } else {
+            console.error('Event element not found');
+        }
     }
 }
 
 function deleteEvent(elementId) {
+    console.log(`Delete event called for ${elementId}`);
     const eventElement = document.querySelector(`#${elementId}`).closest('.event');
-    eventElement.remove();
+    if (eventElement) {
+        eventElement.remove();
+    } else {
+        console.error('Event element not found');
+    }
 }
